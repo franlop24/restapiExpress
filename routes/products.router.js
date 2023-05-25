@@ -23,16 +23,22 @@ router.get('/filter', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  res.json({
-    id: id,
-    name: "Producto 1",
-    price: 1000
-   });
+  if(id < 1000){
+    res.json({
+      id: id,
+      name: "Producto 1",
+      price: 1000
+     });
+  } else {
+    res.status(404).json({
+      message: 'Product Not Found!'
+    });
+  }
 });
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.json({
+  res.status(201).json({
     message: 'Producto Creado',
     data: body
   });
