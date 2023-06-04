@@ -37,7 +37,15 @@ class ProductsService {
   }
 
   async getOne(id) {
-    return this.products.find(item => item.id === id);
+    return new Promise((resolve, reject) => {
+      const product = this.products.find(item => item.id === id);
+      if(!product){
+        reject(new Error('product not found'));
+      }
+      const name = this.getTotal();
+      resolve(product);
+    })
+
   }
 
   async update(id, data) {
